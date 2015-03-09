@@ -1,0 +1,10 @@
+{
+    "name": "michabbb/sdks-plesk-xsd-source",
+    "description": "Plesk XSD Sources",
+    "authors": [
+        {
+            "name": "Michael Bladowski",
+            "email": "mbladowski@macropage.de"
+        }
+    ]
+}
