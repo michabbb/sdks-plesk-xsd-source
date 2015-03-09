@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 1999-2014. Parallels IP Holdings GmbH. All Rights Reserved. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:include schemaLocation="plesk_common.xsd"/>
+    <xs:complexType name="WpInstanceInputType">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element name="enable-auto-updates" type="WpInstanceCommonInputType"/>
+            <xs:element name="disable-auto-updates" type="WpInstanceCommonInputType"/>
+            <xs:element name="remove" type="WpInstanceCommonInputType"/>
+            <xs:element name="update-core" type="WpInstanceCommonInputType"/>
+            <xs:element name="clear-cache" type="WpInstanceCommonInputType"/>
+            <xs:element name="activate-plugin" type="WpInstanceAssetsInputType"/>
+            <xs:element name="deactivate-plugin" type="WpInstanceAssetsInputType"/>
+            <xs:element name="uninstall-plugin" type="WpInstanceAssetsInputType"/>
+            <xs:element name="update-plugin" type="WpInstanceAssetsInputType"/>
+            <xs:element name="install-plugin" type="WpInstanceAssetsInputType"/>
+            <xs:element name="activate-theme" type="WpInstanceAssetsInputType"/>
+            <xs:element name="uninstall-theme" type="WpInstanceAssetsInputType"/>
+            <xs:element name="update-theme" type="WpInstanceAssetsInputType"/>
+            <xs:element name="install-theme" type="WpInstanceAssetsInputType"/>
+            <xs:element name="get-list"/>
+            <xs:element name="get-plugin-list" type="WpInstanceCommonInputType"/>
+            <xs:element name="get-theme-list" type="WpInstanceCommonInputType"/>
+            <xs:element name="search-plugins" type="WpInstanceSearchAssetsInputType"/>
+            <xs:element name="search-themes" type="WpInstanceSearchAssetsInputType"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="WpInstanceCommonInputType">
+        <xs:sequence>
+            <xs:element name="filter" type="WpInstanceFilter"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="WpInstanceAssetsInputType">
+        <xs:complexContent>
+            <xs:extension base="WpInstanceCommonInputType">
+                <xs:sequence>
+                    <xs:element name="asset-id" type="xs:string"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="WpInstanceSearchAssetsInputType">
+        <xs:sequence>
+            <xs:element name="term" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="WpInstanceFilter">
+        <xs:choice>
+            <xs:element name="id" type="id_type" maxOccurs="unbounded"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="WpInstanceOutputType">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element name="enable-auto-updates" type="WpInstanceCommonOutputType"/>
+            <xs:element name="disable-auto-updates" type="WpInstanceCommonOutputType"/>
+            <xs:element name="remove" type="WpInstanceCommonOutputType"/>
+            <xs:element name="update-core" type="WpInstanceCommonOutputType"/>
+            <xs:element name="clear-cache" type="WpInstanceCommonOutputType"/>
+            <xs:element name="activate-plugin" type="WpInstanceCommonOutputType"/>
+            <xs:element name="deactivate-plugin" type="WpInstanceCommonOutputType"/>
+            <xs:element name="uninstall-plugin" type="WpInstanceCommonOutputType"/>
+            <xs:element name="update-plugin" type="WpInstanceCommonOutputType"/>
+            <xs:element name="install-plugin" type="WpInstanceCommonOutputType"/>
+            <xs:element name="activate-theme" type="WpInstanceCommonOutputType"/>
+            <xs:element name="uninstall-theme" type="WpInstanceCommonOutputType"/>
+            <xs:element name="update-theme" type="WpInstanceCommonOutputType"/>
+            <xs:element name="install-theme" type="WpInstanceCommonOutputType"/>
+            <xs:element name="get-list" type="WpInstanceListOutputType"/>
+            <xs:element name="get-plugin-list" type="WpInstanceAssetsListOutputType"/>
+            <xs:element name="get-theme-list" type="WpInstanceAssetsListOutputType"/>
+            <xs:element name="search-plugins" type="WpInstanceAssetsListOutputType"/>
+            <xs:element name="search-themes" type="WpInstanceAssetsListOutputType"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="WpInstanceCommonOutputType">
+        <xs:sequence>
+            <xs:element name="result" type="resultType">
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="WpInstanceListOutputType">
+        <xs:sequence>
+            <xs:element name="result" type="WpInstanceListResultType">
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="WpInstanceAssetsListOutputType">
+        <xs:sequence>
+            <xs:element name="result" type="WpInstanceAssetsListResultType">
+            </xs:element>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="WpInstanceListResultType">
+        <xs:complexContent>
+            <xs:extension base="resultType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="wp-instance" type="WpInstanceType" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="WpInstanceAssetsListResultType">
+        <xs:complexContent>
+            <xs:extension base="resultType">
+                <xs:sequence minOccurs="0">
+                    <xs:element name="item" type="WpAssetType" minOccurs="0" maxOccurs="unbounded"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+    <xs:complexType name="WpInstanceType">
+        <xs:sequence>
+            <xs:element name="id" type="int"/>
+            <xs:element name="url" type="xs:string"/>
+            <xs:element name="owner" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="WpAssetType">
+        <xs:sequence>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="id" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+</xs:schema>

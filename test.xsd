@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 1999-2014. Parallels IP Holdings GmbH. All Rights Reserved. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+    <xs:element name="packet">
+        <xs:complexType>
+            <xs:complexContent>
+                <xs:extension base="RequestPacketType">
+                    <xs:sequence>
+                        <xs:element name="request-settings" minOccurs="0">
+                            <xs:complexType>
+                                <xs:sequence>
+                                    <xs:element name="setting" maxOccurs="unbounded">
+                                        <xs:complexType>
+                                            <xs:sequence>
+                                                <xs:element name="name"/>
+                                                <xs:element name="value" minOccurs="0"/>
+                                            </xs:sequence>
+                                        </xs:complexType>
+                                    </xs:element>
+                                </xs:sequence>
+                            </xs:complexType>
+                        </xs:element>
+                        <xs:choice maxOccurs="unbounded">
+                            <xs:element name="reseller" type="ResellerInput"/>
+                        </xs:choice>
+                    </xs:sequence>
+                </xs:extension>
+            </xs:complexContent>
+        </xs:complexType>
+    </xs:element>
+    <xs:complexType name="ResellerInput">
+        <xs:choice maxOccurs="unbounded">
+            <xs:element name="add" type="ResellerAddInput"/>
+        </xs:choice>
+    </xs:complexType>
+    <xs:complexType name="ResellerAddInput">
+        <xs:sequence>
+            <xs:element name="gen-info" type="ResellerAddGenInfo"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="ResellerAddGenInfo">
+        <xs:annotation>
+            <xs:documentation>Reseller adding data</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+            <xs:element name="cname" type="string" minOccurs="0"/>
+            <xs:element name="pname" type="string"/>
+            <xs:element name="login" type="string"/>
+            <xs:element name="passwd" type="string"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:complexType name="RequestPacketType">
+        <xs:attribute name="version" type="string"/>
+    </xs:complexType>
+    <xs:simpleType name="string">
+        <xs:restriction base="xs:string">
+            <xs:whiteSpace value="collapse"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
